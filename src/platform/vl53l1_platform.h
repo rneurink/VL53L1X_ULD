@@ -7,6 +7,10 @@
 #define _VL53L1_PLATFORM_H_
 
 #include "vl53l1_types.h"
+#include "../core/vl53l1_error_codes.h"
+#include "../core/VL53L1X_api.h"
+#include "Arduino.h"
+#include "Wire.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -14,7 +18,8 @@ extern "C"
 #endif
 
 typedef struct {
-	uint32_t dummy;
+		uint8_t   I2cDevAddr;                /*!< i2c device address user specific field */
+        TwoWire   *i2c;
 } VL53L1_Dev_t;
 
 typedef VL53L1_Dev_t *VL53L1_DEV;
