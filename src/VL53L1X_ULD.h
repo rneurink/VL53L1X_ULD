@@ -11,6 +11,6 @@ class VL53L1X_ULD
 
     private:
     
-}
+};
 
 #endif

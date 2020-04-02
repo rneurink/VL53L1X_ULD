@@ -39,110 +39,112 @@
 #include <time.h>
 #include <math.h>
 
+#define VL53L1X_MAX_I2C_XFER_SIZE   64 /* Maximum buffer size to be used in i2c */
+
 int8_t VL53L1_WriteMulti(uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int = 0;
 
     if (count>=VL53L1X_MAX_I2C_XFER_SIZE){
-        Status = VL53L1X_ERROR_INVALID_PARAMS;
+        Status = VL53L1_ERROR_INVALID_PARAMS;
     }
 
-    status_int = i2c_write_multi(dev, index, pdata, count, Dev->i2c);
+    status_int = i2c_write_multi(dev, index, pdata, count);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_ReadMulti(uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count){
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
     if (count>=VL53L1X_MAX_I2C_XFER_SIZE){
-        Status = VL53L1X_ERROR_INVALID_PARAMS;
+        Status = VL53L1_ERROR_INVALID_PARAMS;
     }
 
-    status_int = i2c_read_multi(dev, index, pdata, count, Dev->i2c);
+    status_int = i2c_read_multi(dev, index, pdata, count);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_WrByte(uint16_t dev, uint16_t index, uint8_t data) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
-    status_int = i2c_write_byte(dev, index, data, Dev->i2c);
+    status_int = i2c_write_byte(dev, index, data);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_WrWord(uint16_t dev, uint16_t index, uint16_t data) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
-    status_int = i2c_write_word(dev, index, data, Dev->i2c);
+    status_int = i2c_write_word(dev, index, data);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_WrDWord(uint16_t dev, uint16_t index, uint32_t data) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
-    status_int = i2c_write_Dword(dev, index, data, Dev->i2c);
+    status_int = i2c_write_Dword(dev, index, data);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_RdByte(uint16_t dev, uint16_t index, uint8_t *data) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
-    status_int = i2c_read_byte(dev, index, data, Dev->i2c);
+    status_int = i2c_read_byte(dev, index, data);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_RdWord(uint16_t dev, uint16_t index, uint16_t *data) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
-    status_int = i2c_read_word(dev, index, data, Dev->i2c);
+    status_int = i2c_read_word(dev, index, data);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_RdDWord(uint16_t dev, uint16_t index, uint32_t *data) {
-	VL53L1X_ERROR Status = VL53L1X_ERROR_NONE;
+    VL53L1_Error Status = VL53L1_ERROR_NONE;
     int32_t status_int;
 
-    status_int = i2c_read_Dword(dev, index, data, Dev->i2c);
+    status_int = i2c_read_Dword(dev, index, data);
 
     if (status_int != 0)
-        Status = VL53L1X_ERROR_CONTROL_INTERFACE;
+        Status = VL53L1_ERROR_CONTROL_INTERFACE;
 
     return Status;
 }
 
 int8_t VL53L1_WaitMs(uint16_t dev, int32_t wait_ms){
-	return 0; // to be implemented
+    return 0; // to be implemented
 }
