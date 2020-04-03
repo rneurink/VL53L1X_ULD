@@ -4,7 +4,12 @@
 #include "platform/vl53l1_platform.h"
 #include "core/VL53L1X_api.h"
 
-
+/**
+ * 
+ * TODO: Fix underlying items
+ * - Check and fix error returns
+ * - 
+ */
 
 
 /**
@@ -42,38 +47,41 @@ class VL53L1X_ULD
         VL53L1_Error GetInterruptPolarity(EInterruptPolarity *polarity); // Gets the interrupt polarity of GPIO1
 
         /**
-         * Ranging functions
-         */
-        VL53L1_Error ClearInterrupt();
-        VL53L1_Error StartRanging();
-        VL53L1_Error StopRanging();
-        VL53L1_Error CheckForDataReady(uint8_t *isDataReady);
-
-        /**
          * Ranging configuration
          */ 
-        VL53L1_Error SetTimingBudgetInMs(uint16_t timingBudgetInMs);
-        VL53L1_Error GetTimingBudgetInMs(uint16_t *timingBudgetInMs);
+        VL53L1_Error SetTimingBudgetInMs(uint16_t timingBudgetInMs); // Sets the timing budget in ms. Only predefined values are allowed
+        VL53L1_Error GetTimingBudgetInMs(uint16_t *timingBudgetInMs); // Gets the timing budget in ms
         enum EDistanceMode: uint16_t { Short = 1, Long =2 };
-        VL53L1_Error SetDistanceMode(EDistanceMode mode);
-        VL53L1_Error GetDistanceMode(EDistanceMode *mode);
-        VL53L1_Error SetInterMeasurementInMs(uint32_t interMeasurementInMs);
-        VL53L1_Error GetInterMeasurementInMs(uint16_t *interMeasurementInMs);
+        VL53L1_Error SetDistanceMode(EDistanceMode mode); // Sets the distance mode. Short has higher ambient immunity up to 1.3m. Long can be used up to 4m
+        VL53L1_Error GetDistanceMode(EDistanceMode *mode); // Gets the distance mode
+        VL53L1_Error SetInterMeasurementInMs(uint32_t interMeasurementInMs); // Sets the time between measurements. Should be >= timingBudget
+        VL53L1_Error GetInterMeasurementInMs(uint16_t *interMeasurementInMs); // Gets the time between measurements
 
-        VL53L1_Error GetDistanceInMm(uint16_t *distance);
-        VL53L1_Error GetSignalPerSpad(uint16_t *signalPerSpad);
-        VL53L1_Error GetAmbientPerSpad(uint16_t *ambientPerSpad);
-        VL53L1_Error GetSignalRate(uint16_t *signalRate);
-        VL53L1_Error GetEnabledSpadCount(uint16_t *count);
-        VL53L1_Error GetAmbientRate(uint16_t *ambientRate);
+        VL53L1_Error SetOffsetInMm(int16_t offset); // Sets the offset correction value in mm
+        VL53L1_Error GetOffsetInMm(int16_t *offset); // Gets the offset correction value in mm
+        VL53L1_Error SetXTalk(uint16_t xTalkValue); // Sets the xtalk correction value in cps
+        VL53L1_Error GetXTalk(uint16_t *xTalkValue); // Gets the xtalk correction value
+
+        /**
+         * Ranging functions
+         */
+        VL53L1_Error StartRanging(); // Starts continuous ranging
+        VL53L1_Error StopRanging(); // Stops continuous ranging
+        VL53L1_Error CheckForDataReady(uint8_t *isDataReady); // Poll if data is ready (SW). also possible to use the hardware GPIO1
+        VL53L1_Error ClearInterrupt(); // Clears the interrupt after a ranging data read
+
+        /**
+         * Measurement result functions
+         */
+        VL53L1_Error GetDistanceInMm(uint16_t *distance); // Gets the measured distance in mm
+        VL53L1_Error GetSignalPerSpad(uint16_t *signalPerSpad); // Gets the signal per SPAD in kcps/SPAD
+        VL53L1_Error GetAmbientPerSpad(uint16_t *ambientPerSpad); // Gets the ambient per SPAD
+        VL53L1_Error GetSignalRate(uint16_t *signalRate); // Gets the returned signal in kcps
+        VL53L1_Error GetAmbientRate(uint16_t *ambientRate); // Gets the ambient rate in kcps
+        VL53L1_Error GetEnabledSpadCount(uint16_t *count); // Gets the number of enabled SPADs
         enum ERangeStatus: uint8_t { RangeValid, SigmaFail, SignalFail, MinRangeFail, PhaseOutOfLimit, HardwareFail, RangeValidNoWrapCheck, WrapTargetFail};
-        VL53L1_Error GetRangeStatus(ERangeStatus *rangeStatus);
-        VL53L1_Error GetResult(VL53L1X_Result_t *result);
-
-        VL53L1_Error SetOffsetInMm(int16_t offset);
-        VL53L1_Error GetOffset(int16_t *offset);
-        VL53L1_Error SetXTalk(uint16_t xTalkValue);
-        VL53L1_Error GetXTalk(uint16_t *xTalkValue);
+        VL53L1_Error GetRangeStatus(ERangeStatus *rangeStatus); // Gets the ranging status
+        VL53L1_Error GetResult(VL53L1X_Result_t *result); // Gets the measurement and ranging status in a single read
 
         /**
          * Distance threshold functions
@@ -104,13 +112,6 @@ class VL53L1X_ULD
 
         VL53L1_Error CalibrateOffset(uint16_t targetDistanceInMm, uint16_t *foundOffset);
         VL53L1_Error CalibrateXTalk(uint16_t targetDistanceInMm, uint16_t *foundXtalk);
-
-        
-
-
-
-        VL53L1X_Result_t Result;
-
 
     protected:
 
