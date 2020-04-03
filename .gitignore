@@ -33,6 +33,6 @@
 *.bin
 
 # VS code
-.vscode/*
+.vscode/
 
 build/*
