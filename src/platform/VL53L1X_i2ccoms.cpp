@@ -11,8 +11,8 @@ int8_t i2c_init() {
 int8_t i2c_write_multi(uint8_t deviceAddress, uint16_t registerAddress, uint8_t *pdata, uint32_t count) {
     Wire.beginTransmission(((deviceAddress) >> 1) & 0x7F);
     uint8_t buffer[2];
-    buffer[0]=(uint8_t) registerAddress>>8;
-    buffer[1]=(uint8_t) registerAddress&0xFF;
+    buffer[0] = registerAddress>>8;
+    buffer[1] = registerAddress&0xFF;
     Wire.write(buffer, 2);
 #ifdef I2C_DEBUG
     Serial.print("\tWriting "); Serial.print(count); Serial.print(" to addr 0x"); Serial.print(registerAddress, HEX); Serial.print(": ");
@@ -34,8 +34,8 @@ int8_t i2c_write_multi(uint8_t deviceAddress, uint16_t registerAddress, uint8_t 
 int8_t i2c_read_multi(uint8_t deviceAddress, uint16_t registerAddress, uint8_t *pdata, uint32_t count){
     Wire.beginTransmission(((deviceAddress) >> 1) & 0x7F);
     uint8_t buffer[2];
-    buffer[0]=(uint8_t) registerAddress>>8;
-    buffer[1]=(uint8_t) registerAddress&0xFF;
+    buffer[0] = registerAddress>>8;
+    buffer[1] = registerAddress&0xFF;
     Wire.write(buffer, 2);
     Wire.endTransmission();
     Wire.requestFrom(((deviceAddress) >> 1) & 0x7F, (byte)count);
