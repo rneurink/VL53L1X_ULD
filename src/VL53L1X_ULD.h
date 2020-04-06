@@ -12,6 +12,34 @@
  * - 
  */
 
+enum EInterruptPolarity { 
+    ActiveLOW, 
+    ActiveHIGH 
+};
+
+enum EDistanceMode: uint16_t { 
+    Short = 1, 
+    Long =2 
+};
+
+enum ERangeStatus: uint8_t { 
+    RangeValid, 
+    SigmaFail, 
+    SignalFail, 
+    MinRangeFail, 
+    PhaseOutOfLimit, 
+    HardwareFail, 
+    RangeValidNoWrapCheck, 
+    WrapTargetFail
+};
+
+enum EThresholdWindow: uint8_t { 
+    Below, 
+    Above, 
+    Out, 
+    In 
+};
+
 
 /**
  * @brief This class acts as a wrapper around the ULD api from ST
@@ -26,6 +54,7 @@ class VL53L1X_ULD
          */
         VL53L1_Error GetBootState(uint8_t *isBooted); // Returns the boot state of the device
         VL53L1_Error Init(); // Intializes the device
+        VL53L1_Error Begin(); // Wait for the device to be booted and initializes it
 
         /**
          * Version functions
@@ -43,7 +72,6 @@ class VL53L1X_ULD
         /**
          * Interrupt configuration
          */
-        enum EInterruptPolarity { ActiveLOW, ActiveHIGH };
         VL53L1_Error SetInterruptPolarity(EInterruptPolarity polarity); // Sets the interrupt polarity of GPIO1
         VL53L1_Error GetInterruptPolarity(EInterruptPolarity *polarity); // Gets the interrupt polarity of GPIO1
 
@@ -52,7 +80,6 @@ class VL53L1X_ULD
          */ 
         VL53L1_Error SetTimingBudgetInMs(uint16_t timingBudgetInMs); // Sets the timing budget in ms. Only predefined values are allowed
         VL53L1_Error GetTimingBudgetInMs(uint16_t *timingBudgetInMs); // Gets the timing budget in ms
-        enum EDistanceMode: uint16_t { Short = 1, Long =2 };
         VL53L1_Error SetDistanceMode(EDistanceMode mode); // Sets the distance mode. Short has higher ambient immunity up to 1.3m. Long can be used up to 4m
         VL53L1_Error GetDistanceMode(EDistanceMode *mode); // Gets the distance mode
         VL53L1_Error SetInterMeasurementInMs(uint32_t interMeasurementInMs); // Sets the time between measurements. Should be >= timingBudget
@@ -80,14 +107,12 @@ class VL53L1X_ULD
         VL53L1_Error GetSignalRate(uint16_t *signalRate); // Gets the returned signal in kcps
         VL53L1_Error GetAmbientRate(uint16_t *ambientRate); // Gets the ambient rate in kcps
         VL53L1_Error GetEnabledSpadCount(uint16_t *count); // Gets the number of enabled SPADs
-        enum ERangeStatus: uint8_t { RangeValid, SigmaFail, SignalFail, MinRangeFail, PhaseOutOfLimit, HardwareFail, RangeValidNoWrapCheck, WrapTargetFail};
         VL53L1_Error GetRangeStatus(ERangeStatus *rangeStatus); // Gets the ranging status
         VL53L1_Error GetResult(VL53L1X_Result_t *result); // Gets the measurement and ranging status in a single read
 
         /**
          * Distance threshold functions
          */
-        enum EThresholdWindow: uint8_t { Below, Above, Out, In };
         VL53L1_Error SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window, uint8_t IntOnNoTarget = 1); // Programs the theshold detection mode
         VL53L1_Error ResetDistanceThreshold(); // Resets the distance threshold mode
         VL53L1_Error GetDistanceThresholdWindow(EThresholdWindow *window); // Gets the distance threshold window

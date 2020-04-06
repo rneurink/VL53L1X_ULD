@@ -24,6 +24,24 @@ VL53L1_Error VL53L1X_ULD::Init() {
 }
 
 /**
+ * @brief This function is a combination of GetBootState and Init. It waits for the device to boot up (with a timeout) and initializes it.
+ */
+VL53L1_Error VL53L1X_ULD::Begin() {
+    uint8_t isBooted = false;
+    uint16_t startTime = millis();
+    while (!isBooted && (millis() > (startTime + 100))) {
+        GetBootState(&isBooted);
+    }
+    // Check if the device has booted. If not a timeout has occured
+    if (!isBooted) {
+        return VL53L1_ERROR_TIME_OUT;
+    }
+
+    // Initialize the device
+    return Init();
+}
+
+/**
  * @brief This function gets the version info from the implemented ULD API from ST
  * @return The version of the implemented API as a VL53L1X_Version_t struct
  */

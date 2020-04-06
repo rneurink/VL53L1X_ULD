@@ -1,22 +1,94 @@
 #######################################
-# Syntax Coloring Map For ST_FlightSense_Sensor_Shields
+# Syntax Coloring Map For the
+# VL53L1X_ULD library
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-VL53L1X_ULD					KEYWORD1
+VL53L1X_ULD	KEYWORD1
+VL53L1_Error	KEYWORD1
+EInterruptPolarity	KEYWORD1
+EDistanceMode	KEYWORD1
+ERangeStatus	KEYWORD1
+EThresholdWindow	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-init						KEYWORD2
+GetBootState	KEYWORD2
+Init	KEYWORD2
+Begin	KEYWORD2
+GetAPIVersion	KEYWORD2
+GetSensorId	KEYWORD2
+GetMaskRevision	KEYWORD2
+SetI2CAddress	KEYWORD2
+GetI2CAddress	KEYWORD2
+SetInterruptPolarity	KEYWORD2
+GetInterruptPolarity	KEYWORD2
+SetTimingBudgetInMs	KEYWORD2
+GetTimingBudgetInMs	KEYWORD2
+SetDistanceMode	KEYWORD2
+GetDistanceMode	KEYWORD2
+SetInterMeasurementInMs	KEYWORD2
+GetInterMeasurementInMs	KEYWORD2
+SetOffsetInMm	KEYWORD2
+GetOffsetInMm	KEYWORD2
+SetXTalk	KEYWORD2
+GetXTalk	KEYWORD2
+StartRanging	KEYWORD2
+StopRanging	KEYWORD2
+CheckForDataReady	KEYWORD2
+ClearInterrupt	KEYWORD2
+GetDistanceInMm	KEYWORD2
+GetSignalPerSpad	KEYWORD2
+GetAmbientPerSpad	KEYWORD2
+GetSignalRate	KEYWORD2
+GetAmbientRate	KEYWORD2
+GetEnabledSpadCount	KEYWORD2
+GetRangeStatus	KEYWORD2
+GetResult	KEYWORD2
+SetDistanceThreshold	KEYWORD2
+ResetDistanceThreshold	KEYWORD2
+GetDistanceThresholdWindow	KEYWORD2
+GetDistanceThresholdLow	KEYWORD2
+GetDistanceThresholdHigh	KEYWORD2
+SetROI	KEYWORD2
+GetROI	KEYWORD2
+SetROICenter	KEYWORD2
+GetROICenter	KEYWORD2
+SetSignalThreshold	KEYWORD2
+GetSignalThreshold	KEYWORD2
+SetSigmaThreshold	KEYWORD2
+GetSigmaThreshold	KEYWORD2
+StartTemperatureUpdate	KEYWORD2
+CalibrateOffset	KEYWORD2
+CalibrateXTalk	KEYWORD2
 
+#######################################
+# Structures (KEYWORD3)
+#######################################
+VL53L1X_Version_t	KEYWORD3
+VL53L1X_Result_t	KEYWORD3
 
 #######################################
 # Constants (LITERAL1)
 #######################################
-
-
+ActiveLOW	LITERAL1
+ActiveHIGH	LITERAL1
+Short	LITERAL1
+Long	LITERAL1
+RangeValid	LITERAL1
+SigmaFail	LITERAL1
+SignalFail	LITERAL1
+MinRangeFail	LITERAL1
+PhaseOutOfLimit	LITERAL1
+HardwareFail	LITERAL1
+RangeValidNoWrapCheck	LITERAL1
+WrapTargetFail	LITERAL1
+Below	LITERAL1
+Above	LITERAL1
+Out	LITERAL1
+In	LITERAL1
