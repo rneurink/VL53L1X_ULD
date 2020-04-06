@@ -95,7 +95,7 @@ void setup() {
     sensor.CheckForDataReady(&dataReady);
     delay(5);
   }
-  uint16_t buffer;
+  uint16_t buffer, buffer2;
   sensor.GetDistanceInMm(&buffer);
   Serial.println("Distance in mm: " + String(buffer));
   sensor.GetSignalPerSpad(&buffer);
@@ -118,13 +118,6 @@ void setup() {
   sensor.ClearInterrupt();
 
   VL53L1X_ULD::EThresholdWindow window;
-  sensor.GetDistanceThresholdWindow(&window);
-  Serial.println("Threshold window: " + String((uint8_t)window));
-  sensor.GetDistanceThresholdLow(&buffer);
-  Serial.println("Theshold lower: " + String(buffer));
-  sensor.GetDistanceThresholdHigh(&buffer);
-  Serial.println("Threshold higher: " + String(buffer));
-
   sensor.SetDistanceThreshold(150,200,VL53L1X_ULD::In);
   sensor.GetDistanceThresholdWindow(&window);
   Serial.println("Threshold window: " + String((uint8_t)window));
@@ -141,7 +134,12 @@ void setup() {
   sensor.GetDistanceThresholdHigh(&buffer);
   Serial.println("Threshold higher: " + String(buffer));
 
-  sensor.StartRanging();
+  sensor.GetROI(&buffer,&buffer2);
+  Serial.println("ROI X: " + String(buffer) + " Y: " + String(buffer2));
+  sensor.GetROICenter((uint8_t*)&buffer);
+  Serial.println("ROI center: " + String((uint8_t)buffer));
+
+  //sensor.StartRanging();
 }
 
 void loop() {

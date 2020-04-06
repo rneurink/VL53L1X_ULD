@@ -3,6 +3,7 @@
 
 #include "platform/vl53l1_platform.h"
 #include "core/VL53L1X_api.h"
+#include "core/VL53L1X_calibration.h"
 
 /**
  * 
@@ -96,20 +97,20 @@ class VL53L1X_ULD
         /**
          * ROI functions
          */
-        VL53L1_Error SetROI(uint16_t x, uint16_t y);
-        VL53L1_Error GetROI(uint16_t *x, uint16_t *y);
-        VL53L1_Error SetROICenter(uint8_t center);
-        VL53L1_Error GetROICenter(uint8_t *center);
+        VL53L1_Error SetROI(uint16_t x, uint16_t y); // Sets the ROI. Smallest acceptable size is 4
+        VL53L1_Error GetROI(uint16_t *x, uint16_t *y); // Gets the ROI
+        VL53L1_Error SetROICenter(uint8_t center); // Sets the center of the user defined ROI
+        VL53L1_Error GetROICenter(uint8_t *center); // Gets the center of the user defined ROI
 
         /**
          * Calibration functions
          */
-        VL53L1_Error SetSignalThreshold(uint16_t signal);
-        VL53L1_Error GetSignalThreshold(uint16_t *signal);
-        VL53L1_Error SetSigmaThreshold(uint16_t sigma);
-        VL53L1_Error GetSigmaThreshold(uint16_t *sigma);
+        VL53L1_Error SetSignalThreshold(uint16_t signal); // Sets a signal threshold in kcps
+        VL53L1_Error GetSignalThreshold(uint16_t *signal); // Gets the signal theshold in kcps
+        VL53L1_Error SetSigmaThreshold(uint16_t sigma); // Sets the sigma threshold in mm
+        VL53L1_Error GetSigmaThreshold(uint16_t *sigma); // Gets the signal threshold in mm
 
-        VL53L1_Error StartTemperatureUpdate();
+        VL53L1_Error StartTemperatureUpdate(); // Performs a temperature calibration
 
         VL53L1_Error CalibrateOffset(uint16_t targetDistanceInMm, uint16_t *foundOffset);
         VL53L1_Error CalibrateXTalk(uint16_t targetDistanceInMm, uint16_t *foundXtalk);

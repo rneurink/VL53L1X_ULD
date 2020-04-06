@@ -326,7 +326,116 @@ VL53L1_Error VL53L1X_ULD::GetDistanceThresholdHigh(uint16_t *thresHigh) {
 }
 
 /**
- * @brief 
- * @param 
- * @return 
+ * @brief This function gets the upper distance threshold value
  */
+VL53L1_Error VL53L1X_ULD::SetROI(uint16_t x, uint16_t y) {
+    VL53L1_Error status = VL53L1_ERROR_NONE;
+    if ((x*y) < 4) {
+        status = VL53L1_ERROR_INVALID_PARAMS;
+    }
+    if (status == VL53L1_ERROR_NONE) {
+        status = VL53L1X_SetROI(i2c_address, x, y);
+    }
+    return status;
+}
+
+/**
+ * @brief This function gets the upper distance threshold value
+ */
+VL53L1_Error VL53L1X_ULD::GetROI(uint16_t *x, uint16_t *y) {
+    return VL53L1X_GetROI_XY(i2c_address, x, y);
+}
+
+/**
+ * Table of SPAD locations. Each SPAD has a number which is not obvious.
+ *
+ * 128,136,144,152,160,168,176,184, 192,200,208,216,224,232,240,248
+ * 129,137,145,153,161,169,177,185, 193,201,209,217,225,233,241,249
+ * 130,138,146,154,162,170,178,186, 194,202,210,218,226,234,242,250
+ * 131,139,147,155,163,171,179,187, 195,203,211,219,227,235,243,251
+ * 132,140,148,156,164,172,180,188, 196,204,212,220,228,236,244,252
+ * 133,141,149,157,165,173,181,189, 197,205,213,221,229,237,245,253
+ * 134,142,150,158,166,174,182,190, 198,206,214,222,230,238,246,254
+ * 135,143,151,159,167,175,183,191, 199,207,215,223,231,239,247,255
+ * 127,119,111,103, 95, 87, 79, 71, 63, 55, 47, 39, 31, 23, 15, 7
+ * 126,118,110,102, 94, 86, 78, 70, 62, 54, 46, 38, 30, 22, 14, 6
+ * 125,117,109,101, 93, 85, 77, 69, 61, 53, 45, 37, 29, 21, 13, 5
+ * 124,116,108,100, 92, 84, 76, 68, 60, 52, 44, 36, 28, 20, 12, 4
+ * 123,115,107, 99, 91, 83, 75, 67, 59, 51, 43, 35, 27, 19, 11, 3
+ * 122,114,106, 98, 90, 82, 74, 66, 58, 50, 42, 34, 26, 18, 10, 2
+ * 121,113,105, 97, 89, 81, 73, 65, 57, 49, 41, 33, 25, 17, 9, 1
+ * 120,112,104, 96, 88, 80, 72, 64, 56, 48, 40, 32, 24, 16, 8, 0 
+ */
+
+/**
+ * @brief This function gets the upper distance threshold value
+ */
+VL53L1_Error VL53L1X_ULD::SetROICenter(uint8_t center) {
+    return VL53L1X_SetROICenter(i2c_address, center);
+}
+
+/**
+ * @brief This function gets the upper distance threshold value
+ */
+VL53L1_Error VL53L1X_ULD::GetROICenter(uint8_t *center) {
+    return VL53L1X_GetROICenter(i2c_address, center);
+}
+
+/**
+ * @brief This function programs a new signal threshold in kcps. The default is 1024
+ */
+VL53L1_Error VL53L1X_ULD::SetSignalThreshold(uint16_t signal) {
+    return VL53L1X_SetSignalThreshold(i2c_address, signal);
+}
+
+/**
+ * @brief This function gets current signal threshold in kcps
+ */
+VL53L1_Error VL53L1X_ULD::GetSignalThreshold(uint16_t *signal) {
+    return VL53L1X_GetSignalThreshold(i2c_address, signal);
+}
+
+/**
+ * @brief This function programs a new sigma threshold in mm. The default is 15mm
+ */
+VL53L1_Error VL53L1X_ULD::SetSigmaThreshold(uint16_t sigma) {
+    return VL53L1X_SetSigmaThreshold(i2c_address, sigma);
+}
+
+/**
+ * @brief This function gets the current sigma threshold in mm
+ */
+VL53L1_Error VL53L1X_ULD::GetSigmaThreshold(uint16_t *sigma) {
+    return VL53L1X_GetSigmaThreshold(i2c_address, sigma);
+}
+
+/**
+ * @brief This function performs the temperature calibration. 
+ * It is recommended to call this every time a drift of about 8 deg C has been detected.
+ */
+VL53L1_Error VL53L1X_ULD::StartTemperatureUpdate() {
+    return VL53L1X_StartTemperatureUpdate(i2c_address);
+}
+
+/**
+ * @brief This function performs the offset calibration.
+ * @param targetDistanceInMm target distance in mm. ST recommends 100mm
+ * Target reflectance should be grey 17%
+ * @param foundOffset the found offset. This offset is programmed into the device on completion
+ */
+VL53L1_Error VL53L1X_ULD::CalibrateOffset(uint16_t targetDistanceInMm, uint16_t *foundOffset) {
+    return VL53L1X_CalibrateOffset(i2c_address, targetDistanceInMm, foundOffset);
+}
+
+/**
+ * @brief This function performs the xtalk calibration
+ * @param targetDistanceInMm target distance in mm
+ * The target distance : the distance where the sensor start to "under range"\n
+ * due to the influence of the photons reflected back from the cover glass becoming strong\n
+ * It's also called inflection point\n
+ * Target reflectance = grey 17%
+ * @param foundXtalk the found xtalk. This value is programmed into the device on completion
+ */
+VL53L1_Error VL53L1X_ULD::CalibrateXTalk(uint16_t targetDistanceInMm, uint16_t *foundXtalk) {
+    return VL53L1X_CalibrateXtalk(i2c_address, targetDistanceInMm, foundXtalk);
+}
