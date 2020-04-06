@@ -29,8 +29,9 @@ VL53L1_Error VL53L1X_ULD::Init() {
 VL53L1_Error VL53L1X_ULD::Begin() {
     uint8_t isBooted = false;
     uint16_t startTime = millis();
-    while (!isBooted && (millis() > (startTime + 100))) {
+    while (!isBooted && (millis() < (startTime + 100))) {
         GetBootState(&isBooted);
+        delay(5);
     }
     // Check if the device has booted. If not a timeout has occured
     if (!isBooted) {
