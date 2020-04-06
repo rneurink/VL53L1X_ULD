@@ -280,7 +280,50 @@ VL53L1_Error VL53L1X_ULD::GetResult(VL53L1X_Result_t *result) {
     return VL53L1X_GetResult(i2c_address, result);
 }
 
+/**
+ * @brief This function programs the threshold detection mode.
+ * @param thresLow the lower threshold in mm 
+ * @param thresHigh the higher threshold in mm
+ * @param window the detection mode. Could be below, above, out and in the detection window.1
+ * @return 
+ */
+VL53L1_Error VL53L1X_ULD::SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window, uint8_t IntOnNoTarget = 1) {
+    return VL53L1X_SetDistanceThreshold(i2c_address, thresLow, thresHigh, (uint8_t)window, IntOnNoTarget);
+}
 
+/**
+ * @brief This function resets the threshold detection mode.
+ */
+VL53L1_Error VL53L1X_ULD::ResetDistanceThreshold() {
+    VL53L1_Error status = VL53L1_ERROR_NONE;
+
+    status = VL53L1_WrByte(i2c_address, SYSTEM__INTERRUPT_CONFIG_GPIO, 0x20); // default after reset
+
+    status = VL53L1_WrWord(i2c_address, SYSTEM__THRESH_HIGH, 0);
+	status = VL53L1_WrWord(i2c_address, SYSTEM__THRESH_LOW, 0);
+    return status;
+}
+
+/**
+ * @brief This function gets the currently programmed window
+ */
+VL53L1_Error VL53L1X_ULD::GetDistanceThresholdWindow(EThresholdWindow *window) {
+    return VL53L1X_GetDistanceThresholdWindow(i2c_address, (uint16_t*)window);
+}
+
+/**
+ * @brief This function gets the lower distance threshold value
+ */
+VL53L1_Error VL53L1X_ULD::GetDistanceThresholdLow(uint16_t *thresLow) {
+    return VL53L1X_GetDistanceThresholdLow(i2c_address, thresLow);
+}
+
+/**
+ * @brief This function gets the upper distance threshold value
+ */
+VL53L1_Error VL53L1X_ULD::GetDistanceThresholdHigh(uint16_t *thresHigh) {
+    return VL53L1X_GetDistanceThresholdHigh(i2c_address, thresHigh);
+}
 
 /**
  * @brief 

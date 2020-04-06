@@ -117,12 +117,44 @@ void setup() {
   sensor.StopRanging();
   sensor.ClearInterrupt();
 
+  VL53L1X_ULD::EThresholdWindow window;
+  sensor.GetDistanceThresholdWindow(&window);
+  Serial.println("Threshold window: " + String((uint8_t)window));
+  sensor.GetDistanceThresholdLow(&buffer);
+  Serial.println("Theshold lower: " + String(buffer));
+  sensor.GetDistanceThresholdHigh(&buffer);
+  Serial.println("Threshold higher: " + String(buffer));
 
+  sensor.SetDistanceThreshold(150,200,VL53L1X_ULD::In);
+  sensor.GetDistanceThresholdWindow(&window);
+  Serial.println("Threshold window: " + String((uint8_t)window));
+  sensor.GetDistanceThresholdLow(&buffer);
+  Serial.println("Theshold lower: " + String(buffer));
+  sensor.GetDistanceThresholdHigh(&buffer);
+  Serial.println("Threshold higher: " + String(buffer));
+
+  sensor.ResetDistanceThreshold(); // set back to default
+  sensor.GetDistanceThresholdWindow(&window);
+  Serial.println("Threshold window: " + String((uint8_t)window));
+  sensor.GetDistanceThresholdLow(&buffer);
+  Serial.println("Theshold lower: " + String(buffer));
+  sensor.GetDistanceThresholdHigh(&buffer);
+  Serial.println("Threshold higher: " + String(buffer));
+
+  sensor.StartRanging();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  uint8_t dataReady = false;
+  while(!dataReady) {
+    sensor.CheckForDataReady(&dataReady);
+    delay(5);
+  }
 
+  VL53L1X_Result_t result;
+  sensor.GetResult(&result);
+  Serial.println("Result distance: " + String(result.Distance) + " status: " + String(result.Status) + " SPADs: " + String(result.NumSPADs));
+  sensor.ClearInterrupt();
 }
 
 void sw_reset() {

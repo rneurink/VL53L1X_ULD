@@ -87,10 +87,11 @@ class VL53L1X_ULD
          * Distance threshold functions
          */
         enum EThresholdWindow: uint8_t { Below, Above, Out, In };
-        VL53L1_Error SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window);
-        VL53L1_Error GetDistanceThresholdWindow(EThresholdWindow *window);
-        VL53L1_Error GetDistanceThresholdLow(uint16_t *thresLow);
-        VL53L1_Error GetDistanceThresholdHigh(uint16_t *thresHigh);
+        VL53L1_Error SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window, uint8_t IntOnNoTarget = 1); // Programs the theshold detection mode
+        VL53L1_Error ResetDistanceThreshold(); // Resets the distance threshold mode
+        VL53L1_Error GetDistanceThresholdWindow(EThresholdWindow *window); // Gets the distance threshold window
+        VL53L1_Error GetDistanceThresholdLow(uint16_t *thresLow); // Gets the lower distance threshold
+        VL53L1_Error GetDistanceThresholdHigh(uint16_t *thresHigh); // Gets the upper distance threshold
 
         /**
          * ROI functions
