@@ -75,12 +75,6 @@ int8_t VL53L1_RdDWord(
         uint16_t      deviceAddress,
         uint16_t      registerAddress,
         uint32_t     *pdata);
-/** @brief VL53L1_WaitMs() definition.\n
- * To be implemented by the developer
- */
-int8_t VL53L1_WaitMs(
-        uint16_t      deviceAddress,
-        int32_t       wait_ms);
 
 #ifdef __cplusplus
 }

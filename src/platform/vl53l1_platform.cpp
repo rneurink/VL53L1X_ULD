@@ -144,7 +144,3 @@ int8_t VL53L1_RdDWord(uint16_t deviceAddress, uint16_t registerAddress, uint32_t
 
     return Status;
 }
-
-int8_t VL53L1_WaitMs(uint16_t deviceAddress, int32_t wait_ms){
-    return 0; // to be implemented
-}
