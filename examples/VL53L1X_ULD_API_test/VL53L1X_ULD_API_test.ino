@@ -17,9 +17,6 @@ void setup() {
   
   delay(5000);
 
-  Wire.begin();
-  //Wire.setClock(400000); // use 400 kHz I2C
-
   // Wait untill the sensor is fully booted
   uint8_t isBooted = false;
   while (!isBooted) {
@@ -63,11 +60,11 @@ void setup() {
   Serial.println(sensor.GetI2CAddress(),HEX);
 
   // Set the interrupt polarity active_low and return it to active_high (default)
-  sensor.SetInterruptPolarity(VL53L1X_ULD::ActiveLOW);
-  VL53L1X_ULD::EInterruptPolarity polarity;
+  sensor.SetInterruptPolarity(ActiveLOW);
+  EInterruptPolarity polarity;
   sensor.GetInterruptPolarity(&polarity);
   Serial.println("Interrupt polarity: " + String((uint8_t)polarity));
-  sensor.SetInterruptPolarity(VL53L1X_ULD::ActiveHIGH);
+  sensor.SetInterruptPolarity(ActiveHIGH);
   sensor.GetInterruptPolarity(&polarity);
   Serial.println("Interrupt polarity: " + String((uint8_t)polarity));
 
@@ -83,8 +80,8 @@ void setup() {
   Serial.println("Intermeasurement: " + String(timingBudget));
 
   // Set the distance mode
-  VL53L1X_ULD::EDistanceMode distanceMode;
-  sensor.SetDistanceMode(VL53L1X_ULD::Short);
+  EDistanceMode distanceMode;
+  sensor.SetDistanceMode(Short);
   sensor.GetDistanceMode(&distanceMode);
   Serial.println("Distance mode: " + String((uint16_t)distanceMode));
 
@@ -108,7 +105,7 @@ void setup() {
   Serial.println("Ambient rate in kcps: " + String(buffer));
   sensor.GetEnabledSpadCount(&buffer);
   Serial.println("Enabled SPADs: " + String(buffer));
-  VL53L1X_ULD::ERangeStatus rangeStatus;
+  ERangeStatus rangeStatus;
   sensor.GetRangeStatus(&rangeStatus);
   Serial.println("Range status: " + String((uint8_t)rangeStatus));
   VL53L1X_Result_t result;
@@ -117,8 +114,8 @@ void setup() {
   sensor.StopRanging();
   sensor.ClearInterrupt();
 
-  VL53L1X_ULD::EThresholdWindow window;
-  sensor.SetDistanceThreshold(150,200,VL53L1X_ULD::In);
+  EThresholdWindow window;
+  sensor.SetDistanceThreshold(150,200,In);
   sensor.GetDistanceThresholdWindow(&window);
   Serial.println("Threshold window: " + String((uint8_t)window));
   sensor.GetDistanceThresholdLow(&buffer);
