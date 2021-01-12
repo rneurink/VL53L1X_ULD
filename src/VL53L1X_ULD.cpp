@@ -306,7 +306,7 @@ VL53L1_Error VL53L1X_ULD::GetResult(VL53L1X_Result_t *result) {
  * @param window the detection mode. Could be below, above, out and in the detection window.1
  * @return 
  */
-VL53L1_Error VL53L1X_ULD::SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window, uint8_t IntOnNoTarget = 1) {
+VL53L1_Error VL53L1X_ULD::SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window, uint8_t IntOnNoTarget) {
     return VL53L1X_SetDistanceThreshold(i2c_address, thresLow, thresHigh, (uint8_t)window, IntOnNoTarget);
 }
 
@@ -442,7 +442,7 @@ VL53L1_Error VL53L1X_ULD::StartTemperatureUpdate() {
  * Target reflectance should be grey 17%
  * @param foundOffset the found offset. This offset is programmed into the device on completion
  */
-VL53L1_Error VL53L1X_ULD::CalibrateOffset(uint16_t targetDistanceInMm, uint16_t *foundOffset) {
+VL53L1_Error VL53L1X_ULD::CalibrateOffset(uint16_t targetDistanceInMm, int16_t *foundOffset) {
     return VL53L1X_CalibrateOffset(i2c_address, targetDistanceInMm, foundOffset);
 }
 
