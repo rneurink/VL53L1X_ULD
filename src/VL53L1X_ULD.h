@@ -137,7 +137,7 @@ class VL53L1X_ULD
 
         VL53L1_Error StartTemperatureUpdate(); // Performs a temperature calibration
 
-        VL53L1_Error CalibrateOffset(uint16_t targetDistanceInMm, uint16_t *foundOffset);
+        VL53L1_Error CalibrateOffset(uint16_t targetDistanceInMm, int16_t *foundOffset);
         VL53L1_Error CalibrateXTalk(uint16_t targetDistanceInMm, uint16_t *foundXtalk);
 
     protected:
