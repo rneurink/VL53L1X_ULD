@@ -1,6 +1,6 @@
 /**
  * This example contains a basic setup to start the distance measurement of the VL53L1X
- * 
+ *  TODO:
  */
 
 #include "VL53L1X_ULD.h"

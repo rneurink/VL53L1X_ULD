@@ -24,7 +24,7 @@ void setup() {
 }
 
 void loop() {
-  // Checking if data is available. This can also be done through the hardware interrupt
+  // Checking if data is available. This can also be done through the hardware interrupt. See the ReadDistanceHardwareInterrupt for an example
   uint8_t dataReady = false;
   while(!dataReady) {
     sensor.CheckForDataReady(&dataReady);
