@@ -9,6 +9,8 @@
  * 
  * TODO: Fix underlying items
  * - Check and fix error returns
+ * - Create additional examples
+ * - Fully test the API
  * - 
  */
 
