@@ -1,2 +1,11 @@
 # VL53L1X_ULD
  Arduino library for the VL53L1X ported from the Ultra Lite Driver from ST
+
+
+---
+### Tested boards:
+- Arduino AVR (Uno, Mega, Nano, Pro Mini, Micro etc.)
+- Arduino megaAVR boards (Nano every)
+- Adafruit SAMD (SAMD21, SAMD51)
+- [MegaCoreX](https://github.com/MCUdude/MegaCoreX) (ATmega4809, ATmega4808, ATmega3209, ATmega3208, ATmega1609, ATmega1608, ATmega809 and ATmega808)
+- [megaTinyCore](https://github.com/SpenceKonde/megaTinyCore) (tinyAVR 0-series, tinyAVR 1-series)
