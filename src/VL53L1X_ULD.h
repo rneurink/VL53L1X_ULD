@@ -56,7 +56,7 @@ class VL53L1X_ULD
          */
         VL53L1_Error GetBootState(uint8_t *isBooted); // Returns the boot state of the device
         VL53L1_Error Init(); // Intializes the device
-        VL53L1_Error Begin(); // Wait for the device to be booted and initializes it
+        VL53L1_Error Begin(uint8_t i2c_address = 0x52); // Wait for the device to be booted and initializes it
 
         /**
          * Version functions
@@ -145,7 +145,7 @@ class VL53L1X_ULD
     protected:
 
     private:
-        uint8_t     i2c_address = 0x52;
+        uint8_t     _i2c_address = 0x52;
 };
 
 #endif
