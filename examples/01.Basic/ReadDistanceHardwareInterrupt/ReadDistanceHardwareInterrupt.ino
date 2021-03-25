@@ -1,7 +1,7 @@
 /**
- * This example contains a basic setup to start the distance measurement of the VL53L1X
+ * This example contains a basic setup to start the distance measurement of the VL53L1X with hardware interrupts
  * In comparison to the ReadDistance example. This example uses a hardware interrupt to read the data when available.
- * This makes it possible for you to put other code in the loop to run. 
+ * This makes it possible to put other code in the loop to run. 
  */
 
 #include "VL53L1X_ULD.h"
@@ -33,6 +33,11 @@ void setup() {
   
   // If you want to reverse the polarity to ActiveLOW uncomment the following line and change the attachInterrupt from RISING to FALLING
   //sensor.SetInterruptPolarity(ActiveLOW); // Possible values are ActiveHIGH and ActiveLOW
+  
+  // Read out the interrupt polarity
+  EInterruptPolarity polarity; // 0 = ActiveLow, 1 = ActiveHigh
+  sensor.GetInterruptPolarity(&polarity);
+  Serial.println("Interrupt polarity: " + String((uint8_t)polarity));
 
   // Attach the hardware interrupt to a method (ReadData) and specify the trigger.
   // For more information about interrupts: https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/ 

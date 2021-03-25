@@ -10,6 +10,7 @@ VL53L1X_ULD sensor;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+  Wire.begin();
   while (!Serial) {
     delay(1);
   }
@@ -21,7 +22,7 @@ void setup() {
 
   // Wait untill the sensor is fully booted
   uint8_t isBooted = false;
-  while (!isBooted) {
+  while (!(isBooted & 1)) {
     sensor.GetBootState(&isBooted);
     Serial.println("Sensor is not yet booted");
   }
@@ -138,7 +139,7 @@ void setup() {
   sensor.GetROICenter((uint8_t*)&buffer);
   Serial.println("ROI center: " + String((uint8_t)buffer));
 
-  //sensor.StartRanging();
+  sensor.StartRanging();
 }
 
 void loop() {

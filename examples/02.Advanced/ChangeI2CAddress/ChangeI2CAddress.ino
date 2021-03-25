@@ -25,6 +25,8 @@ void setup() {
   // Set a different I2C address
   // This address is stored as long as the sensor is powered. To revert this change you can unplug and replug the power to the sensor
   sensor.SetI2CAddress(VL53L1X_ULD_I2C_ADDRESS);
+
+  // Read back the I2C address
   Serial.print("New I2C address: 0x");
   Serial.println(sensor.GetI2CAddress(),HEX);
 

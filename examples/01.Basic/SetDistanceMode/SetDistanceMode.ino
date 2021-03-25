@@ -1,6 +1,5 @@
 /**
- * This example contains a basic setup to start the distance measurement of the VL53L1X
- * with different distance modes and timing budgets
+ * This example contains a basic setup to start the distance measurement of the VL53L1X with different distance modes and timing budgets
  */
 
 #include "VL53L1X_ULD.h"
@@ -21,16 +20,32 @@ void setup() {
   Serial.println("Sensor initialized");
 
   // Set the timing budget. Keep in mind these can only be predefined values
+  // This is the time that a measurement will take.
   // Allowed values: 15, 20, 33, 50, 100, 200, 500
   sensor.SetTimingBudgetInMs(50); 
 
+  // Read back the Timing Budget
+  uint16_t buffer;
+  sensor.GetTimingBudgetInMs(&buffer);
+  Serial.println("Timing budget: " + String(buffer));
+
   // Set the intermeasurement period. This should be higher or equal to the timing budget
+  // This is the time that is in between measurements when using the sensor in free running mode (default)
   sensor.SetInterMeasurementInMs(50);
+
+  // Read back the intermeasurement time
+  sensor.GetInterMeasurementInMs(&buffer);
+  Serial.println("Intermeasurement: " + String(buffer));
 
   // Set the distance mode. This can be Short or Long.
   // Short has better ambient immunity but is only usable up to 1.3m
   // Long can go as far as 4m but needs a higher timing budget and darker environment
   sensor.SetDistanceMode(Short);
+
+  // Read back the distance mode
+  EDistanceMode distanceMode; // 1 = Short, 2 = Long
+  sensor.GetDistanceMode(&distanceMode);
+  Serial.println("Distance mode: " + String((uint16_t)distanceMode));
 
   sensor.StartRanging();
 }

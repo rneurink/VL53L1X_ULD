@@ -42,9 +42,8 @@ VL53L1_Error VL53L1X_ULD::Begin(uint8_t i2cAddress) {
         delay(100);
         startTime = millis();
         while (!(isBooted & 1) && (millis() < (startTime + 100))) {
-            VL53L1_Error error = GetBootState(&isBooted);
+            GetBootState(&isBooted);
             delay(5);
-            Serial.println(error);
         }
         if (!(isBooted & 1)) {
             return VL53L1_ERROR_TIME_OUT;
@@ -52,7 +51,7 @@ VL53L1_Error VL53L1X_ULD::Begin(uint8_t i2cAddress) {
     } else if (!(isBooted & 1)) {
         return VL53L1_ERROR_TIME_OUT;
     }
-    Serial.println("init sensor");
+
     // Initialize the device
     return Init();
 }
@@ -320,7 +319,7 @@ VL53L1_Error VL53L1X_ULD::GetResult(VL53L1X_Result_t *result) {
  * @brief This function programs the threshold detection mode.
  * @param thresLow the lower threshold in mm 
  * @param thresHigh the higher threshold in mm
- * @param window the detection mode. Could be below, above, out and in the detection window.1
+ * @param window the detection mode. Could be below, above, out and in the detection window
  * @return 
  */
 VL53L1_Error VL53L1X_ULD::SetDistanceThreshold(uint16_t thresLow, uint16_t thresHigh, EThresholdWindow window, uint8_t IntOnNoTarget) {
@@ -362,11 +361,11 @@ VL53L1_Error VL53L1X_ULD::GetDistanceThresholdHigh(uint16_t *thresHigh) {
 }
 
 /**
- * @brief This function gets the upper distance threshold value
+ * @brief This function sets the region of interest or ROI
  */
 VL53L1_Error VL53L1X_ULD::SetROI(uint16_t x, uint16_t y) {
     VL53L1_Error status = VL53L1_ERROR_NONE;
-    if ((x*y) < 4) {
+    if ((x*y) < 16) { // Minimum size of 4 x 4
         status = VL53L1_ERROR_INVALID_PARAMS;
     }
     if (status == VL53L1_ERROR_NONE) {
@@ -376,7 +375,7 @@ VL53L1_Error VL53L1X_ULD::SetROI(uint16_t x, uint16_t y) {
 }
 
 /**
- * @brief This function gets the upper distance threshold value
+ * @brief This function gets the ROI
  */
 VL53L1_Error VL53L1X_ULD::GetROI(uint16_t *x, uint16_t *y) {
     return VL53L1X_GetROI_XY(_i2c_address, x, y);
@@ -404,14 +403,15 @@ VL53L1_Error VL53L1X_ULD::GetROI(uint16_t *x, uint16_t *y) {
  */
 
 /**
- * @brief This function gets the upper distance threshold value
+ * @brief This function sets the ROI center, default is 199
+ * @param center the spad that is considered the center, this should be set according the table above. When your ROI has even rows or columns use the upper right SPAD directly from the center point
  */
 VL53L1_Error VL53L1X_ULD::SetROICenter(uint8_t center) {
     return VL53L1X_SetROICenter(_i2c_address, center);
 }
 
 /**
- * @brief This function gets the upper distance threshold value
+ * @brief This function gets the roi center SPAD
  */
 VL53L1_Error VL53L1X_ULD::GetROICenter(uint8_t *center) {
     return VL53L1X_GetROICenter(_i2c_address, center);
