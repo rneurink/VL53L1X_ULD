@@ -9,3 +9,4 @@
 - Adafruit SAMD (SAMD21, SAMD51)
 - [MegaCoreX](https://github.com/MCUdude/MegaCoreX) (ATmega4809, ATmega4808, ATmega3209, ATmega3208, ATmega1609, ATmega1608, ATmega809 and ATmega808)
 - [megaTinyCore](https://github.com/SpenceKonde/megaTinyCore) (tinyAVR 0-series, tinyAVR 1-series)
+- ESP32. The ESP32 needs around 2k2 - 2k7 resistors on the SDA and SCL pins to VCC to work
