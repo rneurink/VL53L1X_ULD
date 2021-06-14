@@ -72,7 +72,7 @@
 #include "vl53l1_error_codes.h"
 
 #define VL53L1X_IMPLEMENTATION_VER_MAJOR       3
-#define VL53L1X_IMPLEMENTATION_VER_MINOR       3
+#define VL53L1X_IMPLEMENTATION_VER_MINOR       5
 #define VL53L1X_IMPLEMENTATION_VER_SUB         0
 #define VL53L1X_IMPLEMENTATION_VER_REVISION  0000
 
@@ -319,7 +319,7 @@ VL53L1X_ERROR VL53L1X_GetXtalk(uint16_t dev, uint16_t *Xtalk);
  * @param  	ThreshLow(in mm) : the threshold under which one the device raises an interrupt if Window = 0
  * @param 	ThreshHigh(in mm) :  the threshold above which one the device raises an interrupt if Window = 1
  * @param   Window detection mode : 0=below, 1=above, 2=out, 3=in
- * @param   IntOnNoTarget = 1 (No longer used - just use 1)
+ * @param   IntOnNoTarget = 0 (No longer used - just use 0)
  */
 VL53L1X_ERROR VL53L1X_SetDistanceThreshold(uint16_t dev, uint16_t ThreshLow,
 			      uint16_t ThreshHigh, uint8_t Window,

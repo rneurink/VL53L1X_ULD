@@ -130,7 +130,9 @@ int8_t VL53L1X_CalibrateXtalk(uint16_t dev, uint16_t TargetDistInMm, uint16_t *x
 	AverageSignalRate = AverageSignalRate / 50;
 	/* Calculate Xtalk value */
 	calXtalk = (uint16_t)(512*(AverageSignalRate*(1-(AverageDistance/TargetDistInMm)))/AverageSpadNb);
-	*xtalk = (uint16_t)(calXtalk*1000)>>9;
-	status = VL53L1_WrWord(dev, 0x0016, calXtalk);
+	if(calXtalk  > 0xffff)
+		calXtalk = 0xffff;
+	*xtalk = (uint16_t)((calXtalk*1000)>>9);
+	status = VL53L1_WrWord(dev, 0x0016, (uint16_t)calXtalk);
 	return status;
 }

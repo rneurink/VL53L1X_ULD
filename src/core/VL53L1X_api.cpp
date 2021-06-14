@@ -563,7 +563,7 @@ VL53L1X_ERROR VL53L1X_GetSignalPerSpad(uint16_t dev, uint16_t *signalRate)
 		VL53L1_RESULT__PEAK_SIGNAL_COUNT_RATE_CROSSTALK_CORRECTED_MCPS_SD0, &signal);
 	status = VL53L1_RdWord(dev,
 		VL53L1_RESULT__DSS_ACTUAL_EFFECTIVE_SPADS_SD0, &SpNb);
-	*signalRate = (uint16_t) (2000.0*signal/SpNb);
+	*signalRate = (uint16_t) (200.0*signal/SpNb);
 	return status;
 }
 
@@ -574,7 +574,7 @@ VL53L1X_ERROR VL53L1X_GetAmbientPerSpad(uint16_t dev, uint16_t *ambPerSp)
 
 	status = VL53L1_RdWord(dev, RESULT__AMBIENT_COUNT_RATE_MCPS_SD, &AmbientRate);
 	status = VL53L1_RdWord(dev, VL53L1_RESULT__DSS_ACTUAL_EFFECTIVE_SPADS_SD0, &SpNb);
-	*ambPerSp=(uint16_t) (2000.0 * AmbientRate / SpNb);
+	*ambPerSp=(uint16_t) (200.0 * AmbientRate / SpNb);
 	return status;
 }
 
@@ -685,10 +685,9 @@ VL53L1X_ERROR VL53L1X_SetXtalk(uint16_t dev, uint16_t XtalkValue)
 VL53L1X_ERROR VL53L1X_GetXtalk(uint16_t dev, uint16_t *xtalk )
 {
 	VL53L1X_ERROR status = 0;
-	uint32_t tmp;
 
-	status = VL53L1_RdDWord(dev,ALGO__CROSSTALK_COMPENSATION_PLANE_OFFSET_KCPS, &tmp);
-	*xtalk = (uint16_t)(tmp*1000)>>9; /* * 1000 to convert kcps to cps and >> 9 (7.9 format) */
+	status = VL53L1_RdWord(dev,ALGO__CROSSTALK_COMPENSATION_PLANE_OFFSET_KCPS, xtalk);
+	*xtalk = (uint16_t)((*xtalk*1000)>>9); /* * 1000 to convert kcps to cps and >> 9 (7.9 format) */
 	return status;
 }
 
