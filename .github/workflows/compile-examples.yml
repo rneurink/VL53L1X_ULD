@@ -35,9 +35,12 @@ jobs:
       
       matrix:
         board: [
-          {"fqbn":"arduino:avr:uno", "type": "Arduino Uno"},
+          {"fqbn": "arduino:avr:uno", "type": "Arduino Uno"},
           {"fqbn": "arduino:megaavr:nona4809", "type": "NanoEvery"},
-          {"fqbn":"megaTinyCore:atxy7:chip=3217", "type": "Attiny3217"}
+          {"fqbn": "megaTinyCore:megaavr:atxy7:chip=3217", "type": "Attiny3217"},
+          {"fqbn": "adafruit:samd:adafruit_itsybitsy_m0", "type": "ItsyBitsy M0"},
+          {"fqbn": "adafruit:samd:adafruit_itsybitsy_m4", "type": "ItsyBitsy M4"},
+          {"fqbn": "MegaCoreX:megaavr:4809", "type": "Atmega4809"}
         ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -52,8 +55,16 @@ jobs:
         with:
           fqbn: ${{ matrix.board.fqbn }}
           platforms: |
-            # Use Board Manager to install the latest release of Arduino megaAVR Boards to get the toolchain
+            # Use Board Manager to install the latest release of Arduino Boards for the toolchain
+            - name: "arduino:avr"
             - name: "arduino:megaavr"
+            # Install Adafruit SAMD
+            - name: "adafruit:samd"
+              source-url: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+            # Install MegaCoreX
+            - name: "MegaCoreX:megaavr"
+              source-url: https://mcudude.github.io/MegaCoreX/package_MCUdude_MegaCoreX_index.json
+            # Install megaTinyCore via Boards Manager for the toolchain
             - name: "megaTinyCore:megaavr"
               source-url: http://drazzy.com/package_drazzy.com_index.json
           
