@@ -30,4 +30,4 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs the arduino lint to check library compliance
-      - uses: arduino/arduino-lint-action@latest
+      - uses: arduino/arduino-lint-action@main
