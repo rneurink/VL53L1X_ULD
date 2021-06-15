@@ -31,3 +31,5 @@ jobs:
 
       # Runs the arduino lint to check library compliance
       - uses: arduino/arduino-lint-action@main
+        with:
+          library-manager: update
