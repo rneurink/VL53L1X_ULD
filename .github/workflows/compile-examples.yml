@@ -33,12 +33,6 @@ jobs:
     strategy:
       fail-fast: false
 
-      matrix:
-        board: [
-          {"fqbn":"arduino:avr:uno", "type": "Arduino Uno"},
-          {"fqbn":"megaTinyCore:atxy7:chip=3217", "type": "Attiny3217"}
-        ]
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -49,9 +43,5 @@ jobs:
       - name: Compile examples
         uses: arduino/compile-sketches@main
         with:
-          fqbn: ${{ matrix.board.fqbn }}
-          platforms: |
-          # Install megaTinyCore
-          - source-url: http://drazzy.com/package_drazzy.com_index.json
-            name: megaTinyCore
+          fqbn: 'arduino:avr:uno'
           
