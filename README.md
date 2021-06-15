@@ -12,7 +12,7 @@ The manual (UM2510) can be found [here](https://www.st.com/resource/en/user_manu
 ### Ultra lite driver VS Full API
 This library is built upon the Ultra Lite Driver. The ultra lite driver is an optimized version of the previously made [VL53L1x Full API](https://www.st.com/content/st_com/en/products/embedded-software/imaging-software/stsw-img007.html) driver.
 
-There are a few things to look out for, mainly the fast ranging option only works up to 66Hz with the ULD (Ultra Lite Driver) and you can only select from a few timing budget options. However, there is also some gain as the ULD is much smaller in size and integrates the very usefull Dynamic SPAD selection (DSS). In short the DSS tries to make sure your target won't cause under- or overexposure at different distances. See Example->02.Advanced->Extendedinformation to get the amount of SPADs used.
+There are a few things to look out for, mainly the fast ranging option only works up to 66Hz with the ULD (Ultra Lite Driver) and you can only select from a few timing budget options. However, there is also some gain as the ULD is much smaller in size and integrates the very usefull Dynamic SPAD selection (DSS). In short the DSS tries to make sure your target won't cause under- or overexposure at different distances. See '_Example->02.Advanced->Extendedinformation_' to get the amount of SPADs used.
 | Differences                  | Full API |         Ultra lite        |
 |------------------------------|:--------:|:-------------------------:|
 | API Size                     |    9kB   |           2.3kB           |
@@ -25,7 +25,6 @@ There are a few things to look out for, mainly the fast ranging option only work
 
 This library should be compatible with all Arduino-compatible board packages where an I2C bus is available
 
----
 ### Tested boards/platorms:
 - Arduino AVR (Uno, Mega, Nano, Pro Mini, Micro etc.)
 - Arduino megaAVR boards (Nano every)
