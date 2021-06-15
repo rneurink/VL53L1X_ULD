@@ -1,6 +1,7 @@
 # VL53L1X_ULD
  Arduino library for the VL53L1X ported from the Ultra Lite Driver from ST
 
+[![Compile Examples](https://github.com/rneurink/VL53L1X_ULD/actions/workflows/compile-examples.yml/badge.svg?branch=master)](https://github.com/rneurink/VL53L1X_ULD/actions/workflows/compile-examples.yml)
 
 ---
 ### Tested boards:
