@@ -1,0 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Compile Examples
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+    paths:
+      - "examples/**"
+      - "src/**"
+  pull_request:
+    branches: [ master ]
+    paths:
+      - "examples/**"
+      - "src/**"
+
+  # workflow_dispatch event allows the workflow to be triggered manually
+  # See: https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch
+  workflow_dispatch:
+  # repository_dispatch event allows the workflow to be triggered via the GitHub API
+  # See: https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch
+  repository_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  compile-examples:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+
+      matrix:
+        board: [
+          {"fqbn":"arduino:avr:uno", "type": "Arduino Uno"},
+          {"fqbn":"megaTinyCore:atxy7:chip=3217", "type": "Attiny3217"}
+        ]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Cheackout repository
+        uses: actions/checkout@v2
+
+      # See: https://github.com/arduino/compile-sketches/README.md
+      - name: Compile examples
+        uses: arduino/compile-sketches@main
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: |
+          # Install megaTinyCore
+          - source-url: http://drazzy.com/package_drazzy.com_index.json
+            name: megaTinyCore
+          
