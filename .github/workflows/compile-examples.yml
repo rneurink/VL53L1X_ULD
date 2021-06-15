@@ -32,6 +32,12 @@ jobs:
     
     strategy:
       fail-fast: false
+      
+      matrix:
+        board: [
+          {"fqbn":"arduino:avr:uno", "type": "Arduino Uno"},
+          {"fqbn": "arduino:megaavr:nona4809", "type": "NanoEvery"}
+        ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -43,5 +49,5 @@ jobs:
       - name: Compile examples
         uses: arduino/compile-sketches@main
         with:
-          fqbn: 'arduino:avr:uno'
+          fqbn: ${{ matrix.board.fqbn }}
           
