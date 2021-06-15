@@ -40,7 +40,8 @@ jobs:
           {"fqbn": "megaTinyCore:megaavr:atxy7:chip=3217", "type": "Attiny3217"},
           {"fqbn": "adafruit:samd:adafruit_itsybitsy_m0", "type": "ItsyBitsy M0"},
           {"fqbn": "adafruit:samd:adafruit_itsybitsy_m4", "type": "ItsyBitsy M4"},
-          {"fqbn": "MegaCoreX:megaavr:4809", "type": "Atmega4809"}
+          {"fqbn": "MegaCoreX:megaavr:4809", "type": "Atmega4809"},
+          {"fqbn": "esp32:esp32:esp32", "type": "ESP32 Dev module"}
         ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -67,4 +68,7 @@ jobs:
             # Install megaTinyCore via Boards Manager for the toolchain
             - name: "megaTinyCore:megaavr"
               source-url: http://drazzy.com/package_drazzy.com_index.json
+            # Install ESP32
+            - name: "esp32:esp32"
+              source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
           
