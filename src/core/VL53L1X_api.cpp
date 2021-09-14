@@ -661,9 +661,9 @@ VL53L1X_ERROR  VL53L1X_GetOffset(uint16_t dev, int16_t *offset)
 	uint16_t Temp;
 
 	status = VL53L1_RdWord(dev,ALGO__PART_TO_PART_RANGE_OFFSET_MM, &Temp);
-	Temp = Temp<<3;
-	Temp = Temp>>5;
-	*offset = (int16_t)(Temp);
+	Temp = Temp >> 2;
+	Temp |= 0xF800; //Pad with 1s
+	*offset = reinterpret_cast< int16_t& >( Temp ); // Interpret uint16_t as int16_t
 	return status;
 }
 
